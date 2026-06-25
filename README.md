@@ -1,4 +1,4 @@
-#Raport Application
+# Raport Application
 
 Web application for generating EDAS profile report images from inspection data.
 
@@ -24,8 +24,21 @@ frontend/
   index.html
   style.css
   script.js
+render.yaml
 .gitignore
 README.md
+```
+
+## How it works
+
+The FastAPI backend serves the frontend at `/` and exposes the report generator at `/api/generate-report`.
+
+```txt
+Public link
+  -> loads Romanian frontend
+  -> frontend sends form data to /api/generate-report
+  -> Python creates PNG
+  -> frontend shows/downloads the generated image
 ```
 
 ## Local backend setup
@@ -38,7 +51,7 @@ pip install -r requirements.txt
 uvicorn app:app --reload
 ```
 
-Backend URL:
+Open:
 
 ```txt
 http://127.0.0.1:8000
@@ -50,21 +63,26 @@ Health check:
 http://127.0.0.1:8000/api/health
 ```
 
-## Local frontend setup
+## Render deployment
 
-Open `frontend/index.html` in the browser.
+Use Render Web Service with the included `render.yaml` blueprint.
 
-During local development, `frontend/script.js` points to:
+Manual settings if needed:
 
-```js
-const API_BASE_URL = "http://127.0.0.1:8000";
+```txt
+Service type: Web Service
+Root Directory: backend
+Runtime: Python
+Build Command: pip install -r requirements.txt
+Start Command: uvicorn app:app --host 0.0.0.0 --port $PORT
+Plan: Free
 ```
 
-This can be changed later for deployment.
+After deployment, Render provides a public `onrender.com` URL. Opening that URL loads the frontend and uses the Python backend from the same service.
 
 ## Next milestones
 
-1. Add the cleaned report engine from the original desktop Python app.
-2. Add logo upload support.
+1. Add logo upload support.
+2. Restore full original logo/header behavior from the desktop engine.
 3. Improve generated file cleanup.
-4. Prepare Render/Railway deployment.
+4. Add export naming options.
