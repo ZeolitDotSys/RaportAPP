@@ -3,12 +3,15 @@ from uuid import uuid4
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from raport_engine import create_report
 from schemas import ReportRequest, ReportResponse
 
 BASE_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = BASE_DIR.parent
+FRONTEND_DIR = PROJECT_DIR / "frontend"
 GENERATED_DIR = BASE_DIR / "generated"
 GENERATED_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -23,6 +26,12 @@ app.add_middleware(
 )
 
 app.mount("/generated", StaticFiles(directory=GENERATED_DIR), name="generated")
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
+
+@app.get("/")
+def serve_frontend():
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 @app.get("/api/health")
