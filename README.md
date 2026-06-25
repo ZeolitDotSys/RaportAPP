@@ -1,4 +1,4 @@
-# EDAS Raport Application
+#Raport Application
 
 Web application for generating EDAS profile report images from inspection data.
 
