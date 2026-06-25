@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDAS Raport</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero">
+      <p class="eyebrow">EDAS Raport Application</p>
+      <h1>Generator raport profil</h1>
+      <p>Completează datele tronsonului, generează raportul și descarcă imaginea PNG.</p>
+    </section>
+
+    <section class="card">
+      <form id="reportForm" class="form-grid">
+        <label>Vreme<input name="weather" value="-" /></label>
+        <label>Operator<input name="operator" value="1" /></label>
+        <label>Inspecție<input name="inspection" value="109" /></label>
+        <label>Firmă<input name="company" value="Edas Exim SRL" /></label>
+        <label>Localitate<input name="city" value="Cazasu" /></label>
+        <label>Stradă<input name="street" value="Branduselor" /></label>
+        <label>Cămin început<input name="start_manhole" value="CM215" /></label>
+        <label>Cămin sfârșit<input name="end_manhole" value="CM216" /></label>
+        <label>Distanță inspectată (m)<input name="distance" type="number" step="0.01" value="39.92" required /></label>
+        <label>Diferență nivel / Pantă (cm)<input name="level_difference" type="number" step="0.01" value="16" required /></label>
+        <label>Data filmare<input name="filming_date" value="5.05.2026" /></label>
+        <label>Diametru<input name="diameter" value="250" /></label>
+
+        <div class="actions">
+          <button type="submit">Generează raport</button>
+          <button type="button" id="clearBtn" class="secondary">Golește</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="result" class="card result-card hidden">
+      <div>
+        <p class="eyebrow">Rezultat</p>
+        <h2 id="resultTitle">Raport generat</h2>
+        <a id="downloadLink" class="download" href="#" download>Descarcă PNG</a>
+      </div>
+      <img id="reportImage" alt="Raport generat" />
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
